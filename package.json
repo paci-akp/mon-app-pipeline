@@ -1,0 +1,14 @@
+JSON
+{
+ "name": "mon-app-pipeline",
+ "version": "1.0.0",
+ "description": "Application de test pour le pipeline DevSecOps",
+2
+ "main": "server.js",
+ "scripts": {
+ "start": "node server.js"
+ },
+ "dependencies": {
+ "express": "^4.17.1"
+ }
+}
