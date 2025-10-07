@@ -2,23 +2,21 @@ pipeline {
     agent {
         dockerfile {
             dir 'agent'
+            args '--network mon-app-pipeline_default'
         }
     }
-
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
-
         stage('Analyse SCA (Dépendances)') {
             steps {
                 sh 'npm install'
                 sh 'npm audit --audit-level=high'
             }
         }
-
         stage('Analyse SAST (SonarQube)') {
             environment {
                 scannerHome = tool 'SonarScanner'
@@ -29,7 +27,6 @@ pipeline {
                 }
             }
         }
-
         stage('Vérification Quality Gate') {
             steps {
                 timeout(time: 1, unit: 'HOURS') {
@@ -37,7 +34,6 @@ pipeline {
                 }
             }
         }
-
         stage('Build & Scan Image Docker') {
             steps {
                 script {
